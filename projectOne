@@ -1,0 +1,128 @@
+#!/bin/bash
+
+# sysinfo_page - A script to produce an system information HTML file
+
+if [ $(id -u) -ne 0 ]
+then
+   echo "Must be root to user Colt's Shell Script!!"
+   exit 1
+fi
+
+##### Constants
+
+TITLE="System Information for $HOSTNAME"
+RIGHT_NOW="$(date +"%x %r %Z")"
+TIME_STAMP="Updated on $RIGHT_NOW by $USER"
+
+##### Functions
+
+#Lists some system information, more speciically system releas information and cpu info
+system_info()
+{
+	echo "<h2>System release info<h2>"
+	echo "<pre>"
+	uname -v
+	echo "</pre>"
+	echo "<pre>"
+	lscpu
+	echo "</pre>"
+}
+
+#Shows the uptime of the system
+show_uptime()
+{
+	echo "<h2>System uptime</h2>"
+	echo "<pre>"
+	uptime
+	echo "</pre>"
+}
+
+#Will list out space on all drives
+drive_space()
+{
+	echo "<h2>Filesystem space</h2>"
+	echo "<pre>"
+	df
+	echo "</pre>"
+}
+
+#Will list out the space of home directories depending on each user
+home_space()
+{
+	echo "<h2>Home directory space by user</h2>"
+	echo "<pre>"
+	echo "Bytes Directory"
+	du -s /home/* | sort -nr
+	echo "</pre>"
+}
+
+#Shows the current systems IP address
+ip_info()
+{
+	echo "<h2>Ip Information</h2>"
+	echo "<pre>"
+	hostname -I
+	echo "</pre>"
+}
+
+#Will read out /proc/meminfo giviing the user memory information
+mem_info()
+{
+	echo "<h2>Memory Information</h2>"
+	echo "<pre>"
+	cat /proc/meminfo
+	echo "</pre>"
+}
+
+#Shows recent login history
+login_data()
+{
+	echo "<h2>Recent Login History</h2>"
+	echo "<pre>"
+	last
+	echo "</pre>"
+}
+
+#Lists all real users
+list_users()
+{
+	echo "<h2>List of Real Users</h2>"
+	echo "<pre>"
+	cat /etc/passwd | awk -F: '$3 > 999  {print $1}'
+	echo "Current User UID:"
+	id -u
+	echo "</pre>"
+}
+
+#Shows some information about connected or installed hardware
+hardware_info()
+{
+	echo "<h2>Hardware Information</h2>"
+	echo "<pre>"
+	lshw -short
+	echo "</pre>"
+}
+
+##### Main
+
+cat <<- _EOF_
+	<html>
+	<head>
+		<title>$TITLE</title>
+	</head>
+
+	<body>
+	<h1>$TITLE</h1>
+	<p>$TIME_STAMP</p>
+	$(system_info)
+	$(show_uptime)
+	$(drive_space)
+	$(home_space)
+	$(ip_info)
+	$(mem_info)
+	$(login_data)
+	$(list_users)
+	$(hardware_info)
+	</body>
+	</html>
+_EOF_
