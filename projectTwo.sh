@@ -1,13 +1,17 @@
 #!/bin/bash
+#Project 2 Script, creates users based off a text file that contains emails. Sends email to the new users with passwords and account info
 
+#checks if user is root
 if [ $(id -u) -ne 0 ]
 then
   echo "Must be root to user Colt's Shell Script!!"
   exit 1
 fi
 
+#a constant
 unset INPUT_FILE
 
+#Checks if the group CSI230 exists, if not create it
 group="CSI230"
 if grep -q $group /etc/group
 then
@@ -18,17 +22,20 @@ else
   echo "Done..."
 fi
 
+#User input for email information to send the new passwords to the users
 echo "Please enter email address:"
 read EMAIL_ADDRESS
 echo "Please enter email password:"
 read -s EMAIL_PASSWORD
 
+#usage error function
 usage()
 {
   echo "$0 usage: [-f input file]"
   exit 1
 }
 
+#Takes in the file during the commands call
 while getopts 'f:' options
 do
   case $options in
@@ -43,6 +50,10 @@ do
   esac
 done
 
+#Iterate through the file, take usernames from email adresses based off data before "@".
+#Searches if user exists
+#If user exists, rest password and send email
+#If not create new user, asign them to the group, give random password and send email
 while read -r line
 do
   ADDRESS=$(echo $line)
