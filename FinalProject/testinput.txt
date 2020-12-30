@@ -1,0 +1,4 @@
+[docs|example|style]
+[text|This is some text!|black|Arial, Helvetica, sans-serif|10|center]
+[text|Second text|blue|Arial, Helvetica, sans-serif|40|center]
+[image|test|center|100|100]

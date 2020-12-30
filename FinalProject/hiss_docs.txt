@@ -1,0 +1,64 @@
+Created by Colt Magri,
+Final Project for Linux/Unix
+HISS Compiler
+
+HISS DOCUMENTATION V 0.01
+HISS (HTML Integrated Style Sheets) is a language that allows web develepors to write in a single language to output to both css and html seamlessly.
+The entire language is based off of blocks, which look like this:
+
+[blockname|paramaterOne|parameterTwo]
+
+It's a very simple and basic language. Just write with blocks in a .txt file, save it and compile it with the HISS compiler.
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+NAME:
+docs
+
+DESCRIPTION:
+The docs block is for document setup when compiling the HISS code.
+The first slot is reserved for the desired name of the new html file, and the second slot is reserved for the name of the css file.
+Compiling HISS code that does not include a docs block will output both the html and css file with the same name of the original HISS file.
+A docs block MUST appear on the FIRST line of any HISS code, otherwise the compiling process will fail.
+
+USAGE:
+[docs|B001|B002]
+B001 - String - Name of html file output
+B002 - String - Name of css file output
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+NAME:
+text
+
+DESCRIPTION:
+The text block allows for text to be displayed on the web page.
+
+USAGE:
+[text|B001|B002|B003|B004|B005]
+B001 - String - Text to be displayed
+B002 - String - Hex color value, color of displayed text
+B003 - String - Font
+B004 - Int - Text Size
+B005 - String - Text Layout
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+NAME:
+image
+
+DESCRIPTION:
+The image block allows for images to placed on the webpage
+
+USAGE:
+[image|B001|B002|B003|B004]
+B001 - String - Name of the image to be displayed
+B002 - String - Image layout
+B003 - Int - Image Width
+B004 - Int - Image Height
+
+---------------------------------------------------------------------------------------------------------------------------------------------
